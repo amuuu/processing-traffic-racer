@@ -25,23 +25,9 @@ void draw(){
   
   drawPlayer();
   
-  
-  fill(#0000cc);
-  for (int i= camera.currentPos - camera.halfScreen, j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
-    if (road.scenery_y.get(i)!=null) {
-      rect(road.scenery_x.get(i), camera.scrollPos+ j*30, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
-    }
-  } 
+  drawOpponents();
 
-  camera.scrollPos--;
-  //scrollPos %= halfScreen;
-  if (camera.scrollPos == 0)
-  {
-    camera.currentPos++;
-    camera.scrollPos = 30;
-    if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
-      exit(); // End
-  }
+  moveCamera();
   
 }
 
@@ -71,4 +57,26 @@ void drawPlayer(){
   fill(0);
   rect(player.x,player.y, player.height, player.width);
   popMatrix();
+}
+
+void drawOpponents(){
+  
+  fill(#0000cc);
+  for (int i= camera.currentPos - camera.halfScreen, j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
+    if (road.scenery_y.get(i)!=null) {
+      rect(road.scenery_x.get(i), camera.scrollPos+ j*30, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+    }
+  } 
+}
+
+void moveCamera(){
+camera.scrollPos--;
+  //scrollPos %= halfScreen;
+  if (camera.scrollPos == 0)
+  {
+    camera.currentPos++;
+    camera.scrollPos = 30;
+    if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
+      exit(); // End
+  }
 }
