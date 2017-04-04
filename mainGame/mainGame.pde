@@ -1,7 +1,6 @@
-final int WIDTH = 600;
-final int HEIGHT = 800;
+final int WIDTH = 600; // screen width
+final int HEIGHT = 800; // screen height
 
-Manager manager;
 Player player;
 Road road;
 Camera camera;
@@ -9,9 +8,9 @@ Camera camera;
 void setup(){
   
   size(600,800);
-  player = new Player(2,6,270,728,80,50,3); //velocity, turning velocity, x, y, height, width, life
+  player = new Player(2,6,270,758,50,30,3); //velocity, turning velocity, x, y, height, width, life
   road = new Road();
-  road.setupTheRoad();
+  road.setupTheRoad(); //for the first time
   camera = new Camera(400); //y
   camera.currentPos = WIDTH/2;
   
@@ -70,13 +69,13 @@ void drawOpponents(){
 }
 
 void moveCamera(){
-camera.scrollPos--;
-  //scrollPos %= halfScreen;
-  if (camera.scrollPos == 0)
-  {
-    camera.currentPos++;
-    camera.scrollPos = 30;
-    if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
-      exit(); // End
-  }
+  camera.scrollPos--;
+    //scrollPos %= halfScreen;
+    if (camera.scrollPos == 0)
+    {
+      camera.currentPos++;
+      camera.scrollPos = 30;
+      if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
+        exit(); // End
+    }
 }
