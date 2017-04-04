@@ -1,5 +1,6 @@
 final int WIDTH = 600; // screen width
 final int HEIGHT = 800; // screen height
+final int GRID_SIZE = 30;
 
 Player player;
 Road road;
@@ -63,19 +64,19 @@ void drawOpponents(){
   fill(#0000cc);
   for (int i= camera.currentPos - camera.halfScreen, j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
-      rect(road.scenery_x.get(i), camera.scrollPos+ j*30, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+      rect(road.scenery_x.get(i), camera.scrollPos+ j*GRID_SIZE, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
     }
   } 
 }
 
 void moveCamera(){
-  camera.scrollPos--;
-    //scrollPos %= halfScreen;
-    if (camera.scrollPos == 0)
-    {
+  
+    camera.scrollPos--;
+    if (camera.scrollPos == 0) {
+      
       camera.currentPos++;
-      camera.scrollPos = 30;
+      camera.scrollPos = GRID_SIZE;
       if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
-        exit(); // End
+        exit();
     }
 }
