@@ -9,7 +9,6 @@ Camera camera;
 void setup(){
   
   size(600,800);
-  //addScreen("level", new MarioLevel(2*width, height)); 
   player = new Player(2,6,270,728,80,50,3); //velocity, turning velocity, x, y, height, width, life
   road = new Road();
   road.setupTheRoad();
@@ -27,10 +26,10 @@ void draw(){
   drawPlayer();
   
   
-  fill(#ff33cc);
+  fill(#0000cc);
   for (int i= camera.currentPos - camera.halfScreen, j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
-    if (road.scenery_y[i]>0) {
-      rect(road.scenery_x[i], camera.scrollPos+ j*30, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+    if (road.scenery_y.get(i)!=null) {
+      rect(road.scenery_x.get(i), camera.scrollPos+ j*30, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
     }
   } 
 
@@ -40,7 +39,7 @@ void draw(){
   {
     camera.currentPos++;
     camera.scrollPos = 30;
-    if (camera.currentPos == road.scenery_x.length - camera.halfScreen)
+    if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
       exit(); // End
   }
   
@@ -61,6 +60,7 @@ void keyPressed() {
 }
 
 void printInfo(){
+  fill(#000000);
   textSize(32);
   text(player.x, 50, 50);
 }
