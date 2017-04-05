@@ -1,13 +1,14 @@
 final int WIDTH = 600; // screen width
 final int HEIGHT = 800; // screen height
 final int GRID_SIZE = 30;
-
+int z = 20;
 Player player;
 Road road;
 Camera camera;
 
 void setup(){
   
+  //size(600,800,P3D);
   size(600,800);
   player = new Player(2,6,270,758,50,30,3); //velocity, turning velocity, x, y, height, width, life
   road = new Road();
@@ -29,6 +30,9 @@ void draw(){
 
   moveCamera();
   
+  pushMatrix();
+  z++;
+  popMatrix();
   
 }
 
@@ -54,9 +58,15 @@ void printInfo(){
 
 void drawPlayer(){
   pushMatrix();
-  translate(30, 20);
-  fill(0);
-  rect(player.x,player.y, player.height, player.width);
+  translate(player.x, player.y,20);
+  fill(#201e23);
+  //float fov = PI/3.0;
+  //perspective(fov, float(WIDTH)/float(HEIGHT), 
+            //z/10.0, z*10.0);
+  //rotateZ(0.5);
+  //rotateY(0.5);
+  //box(player.height, player.width, z);
+  rect(player.x,player.y,player.height,player.width,20,20);
   popMatrix();
 }
 
@@ -65,6 +75,11 @@ void drawOpponents(){
   fill(#0000cc);
   for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
+      //pushMatrix();
+      //translate(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE);
+      //rotateY(0.5);
+      //box(20,20,z);
+      //popMatrix();
       rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
     }
     
