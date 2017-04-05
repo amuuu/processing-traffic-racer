@@ -29,6 +29,7 @@ void draw(){
 
   moveCamera();
   
+  
 }
 
 void keyPressed() {
@@ -48,7 +49,7 @@ void keyPressed() {
 void printInfo(){
   fill(#000000);
   textSize(32);
-  text(player.x, 50, 50);
+  text(player.x+ "--- " + camera.scrollPos + "-----" + camera.currentPos, 50, 50);
 }
 
 void drawPlayer(){
@@ -62,21 +63,27 @@ void drawPlayer(){
 void drawOpponents(){
   
   fill(#0000cc);
-  for (int i= camera.currentPos - camera.halfScreen, j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
+  for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
-      rect(road.scenery_x.get(i), camera.scrollPos+ j*GRID_SIZE, 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+      rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
     }
+    
   } 
 }
 
 void moveCamera(){
   
-    camera.scrollPos--;
-    if (camera.scrollPos == 0) {
-      
-      camera.currentPos++;
+    camera.scrollPos++;
+    if (camera.scrollPos == 60){//HEIGHT - camera.currentPos - GRID_SIZE) {
+      camera.currentPos--;
       camera.scrollPos = GRID_SIZE;
-      if (camera.currentPos == road.scenery_x.size() - camera.halfScreen)
+      if (abs(camera.currentPos) == road.scenery_x.size() - camera.halfScreen)
         exit();
     }
+}
+
+int makeColor(){
+  int [] colors = {#0000cc,#d61ed0,#067a29};
+  int i = int(random(3));
+  return colors[i];
 }
