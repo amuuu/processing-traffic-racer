@@ -65,6 +65,12 @@ void drawOpponents(){
   for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
       rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+      if(checkCollison(i,j)){
+        textSize(50);
+        text("collision!", WIDTH/2, HEIGHT/2);
+        //clear();
+        //exit();
+      }
     }
     
   } 
@@ -76,10 +82,36 @@ void moveCamera(){
     if (camera.scrollPos == 60) {
       camera.currentPos--;
       camera.scrollPos = GRID_SIZE;
-      if (abs(camera.currentPos) == road.scenery_x.size() - camera.halfScreen)
+      if (abs(camera.currentPos) == road.scenery_x.size() - camera.halfScreen) {
+        //road.setupTheRoad();
         exit();
+      }
     }
 }
+
+boolean checkCollison(int i, int j){
+  
+  int x = road.scenery_x.get(i);
+  int y = camera.scrollPos+ j*GRID_SIZE;
+  boolean x_condition_1 = ((player.x<(x)) && ((player.x + player.width)>(x)));
+  boolean x_condition_2 = ((player.x<(x+20)) && ((player.x + player.width)>(x+20)));
+  boolean y_condition   = ((player.y<(y+20)) && ((player.y+player.height)>(y+20))); 
+  
+  if(x_condition_1)
+    println("x1 is true");
+  if(x_condition_2)
+    println("x2 is true");
+  if(y_condition)
+    println("y is true");
+    
+  if( (x_condition_1 && y_condition) || (x_condition_2 && y_condition) ) {
+    println("collision is true");
+    return true;
+  }
+  else
+    return false;
+}
+
 
 int makeColor(){
   int [] colors = {#0000cc,#d61ed0,#067a29};

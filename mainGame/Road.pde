@@ -1,7 +1,5 @@
 class Road {
   
-  //int[] scenery_x = new int[100000];
-  //int[] scenery_y = new int[100000];
   ArrayList <Integer> scenery_x = new ArrayList<Integer>();
   ArrayList <Integer> scenery_y = new ArrayList<Integer>();
   
