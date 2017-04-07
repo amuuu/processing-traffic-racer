@@ -9,8 +9,10 @@ Road road;
 Camera camera;
 ScoreKeeper scorekeeper;
 MySQL db;
+Menu menu;
 
-boolean playTheGame = false;
+boolean playTheGame;
+int gameTimesCounter;
 
 void setup(){
 
@@ -22,11 +24,22 @@ void setup(){
   camera.currentPos = WIDTH/2;  
   db = new MySQL(this, "localhost:3306", "gamescores", "root", "amirreza");
   scorekeeper = new ScoreKeeper(db);
+  menu = new Menu();
   
+  playTheGame = false;
+  gameTimesCounter=0;
 }
 
 void draw(){
+  
   background(230);
+  
+  if(!playTheGame){
+    if (gameTimesCounter==0)
+      menu.game_menu();
+     else
+      menu.loser_menu();
+  }
   
   
   if (playTheGame) {
@@ -34,21 +47,42 @@ void draw(){
     drawPlayer();
     drawOpponents();
     moveCamera();
+    gameTimesCounter++;
   }
  
+  
 }
 
 void keyPressed() {
   
   //println(key);
-  if (key=='a' || key=='A') {
-    player.x -= 8; //player.turning_velocity;
-    if (player.x<=0) player.x = 0; //-30
+  if (playTheGame) {
+    
+    if (key=='a' || key=='A') {
+      player.x -= 8; //player.turning_velocity;
+      if (player.x<=0) player.x = 0; //-30
+    }
+    
+    if (key=='d' || key=='D') {
+      player.x += 8; //player.turning_velocity;
+      if (player.x >= WIDTH-player.width) player.x = WIDTH-player.width;
+    }
+    
+    if (key=='p' || key=='P'){
+      playTheGame=false;
+    }
+    
   }
   
-  if (key=='d' || key=='D') {
-    player.x += 8; //player.turning_velocity;
-    if (player.x >= WIDTH-player.width) player.x = WIDTH-player.width;
+  if (!playTheGame) {
+    if (key=='o' || key=='O'){
+      clear();
+      playTheGame=true;
+    }
+  }
+  
+  if (key=='q' || key=='Q'){
+    exit();
   }
   
 }
@@ -74,14 +108,16 @@ void drawOpponents(){
   for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
       rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
+      
       if(checkCollison(i,j)){
-        textSize(50);
-        text("collision!", WIDTH/2, HEIGHT/2);
-        clear();
+        
+        playTheGame=false;
         scorekeeper.save_score(player.score);
         scorekeeper.print_scores();
-        exit();
+        clear();
+        menu.loser_menu();
       }
+      
     }
     
   } 
