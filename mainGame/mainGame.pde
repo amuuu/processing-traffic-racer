@@ -1,3 +1,5 @@
+import de.bezier.data.sql.*;
+
 final int WIDTH = 600; // screen width
 final int HEIGHT = 800; // screen height
 final int GRID_SIZE = 30;
@@ -5,6 +7,10 @@ final int GRID_SIZE = 30;
 Player player;
 Road road;
 Camera camera;
+ScoreKeeper scorekeeper;
+MySQL db;
+
+boolean playTheGame = false;
 
 void setup(){
 
@@ -13,21 +19,22 @@ void setup(){
   road = new Road();
   road.setupTheRoad(); //for the first time
   camera = new Camera(400); //y
-  camera.currentPos = WIDTH/2;
+  camera.currentPos = WIDTH/2;  
+  db = new MySQL(this, "localhost:3306", "gamescores", "root", "amirreza");
+  scorekeeper = new ScoreKeeper(db);
   
 }
 
 void draw(){
-  
   background(230);
-
-  printInfo();
   
-  drawPlayer();
   
-  drawOpponents();
-
-  moveCamera();
+  if (playTheGame) {
+    printInfo();
+    drawPlayer();
+    drawOpponents();
+    moveCamera();
+  }
  
 }
 
@@ -49,7 +56,8 @@ void keyPressed() {
 void printInfo(){
   fill(#000000);
   textSize(32);
-  text(player.x+ "--- " + camera.scrollPos + "-----" + camera.currentPos, 50, 50);
+  //text(player.x+ "--- " + camera.scrollPos + "-----" + camera.currentPos, 50, 50);
+  text("score: " + player.score, 50, 50);
 }
 
 void drawPlayer(){
@@ -57,6 +65,7 @@ void drawPlayer(){
   fill(#201e23);
   rect(player.x,player.y,player.height,player.width);
   popMatrix();
+  player.score++;
 }
 
 void drawOpponents(){
@@ -68,8 +77,10 @@ void drawOpponents(){
       if(checkCollison(i,j)){
         textSize(50);
         text("collision!", WIDTH/2, HEIGHT/2);
-        //clear();
-        //exit();
+        clear();
+        scorekeeper.save_score(player.score);
+        scorekeeper.print_scores();
+        exit();
       }
     }
     
