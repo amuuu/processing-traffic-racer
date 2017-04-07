@@ -33,16 +33,23 @@ class ScoreKeeper {
         return null;
   }
   
-  void print_scores(){
+  boolean was_highscore(){
     scores_list = see_scores();
-    for (int i=0; i<scores_list.size();i++) {
-      fill(#000000);
-      textSize(15);
-      text("player " + i + ": " + scores_list.get(i), 50, 50+2*i);
+    boolean isHighscore = false;
+    for (int i=0; i<scores_list.size()-1;i++) {
+      //fill(#000000);
+      //textSize(15);
+      //text("player " + i + ": " + scores_list.get(i), 50, 50+2*i);
+      if(player.score<scores_list.get(i)){
+        isHighscore=false;
+        break;
+      }
     }
+    return isHighscore;
   }
 
   
 }
 
 //SELECT COUNT(*) FROM fooTable;
+//text(player.x+ "--- " + camera.scrollPos + "-----" + camera.currentPos, 50, 50);

@@ -38,7 +38,7 @@ void draw(){
     if (gameTimesCounter==0)
       menu.game_menu();
      else
-      menu.loser_menu();
+      menu.loser_menu(scorekeeper.was_highscore());
   }
   
   
@@ -48,6 +48,7 @@ void draw(){
     drawOpponents();
     moveCamera();
     gameTimesCounter++;
+    menu.playerIsInMiddleOfTheGame = true;
   }
  
   
@@ -90,7 +91,7 @@ void keyPressed() {
 void printInfo(){
   fill(#000000);
   textSize(32);
-  //text(player.x+ "--- " + camera.scrollPos + "-----" + camera.currentPos, 50, 50);
+  
   text("score: " + player.score, 50, 50);
 }
 
@@ -107,15 +108,16 @@ void drawOpponents(){
   fill(#0000cc);
   for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
+      
       rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
       
       if(checkCollison(i,j)){
-        
         playTheGame=false;
         scorekeeper.save_score(player.score);
-        scorekeeper.print_scores();
         clear();
-        menu.loser_menu();
+        if(menu.playerIsInMiddleOfTheGame) {player.x+=20;}
+        menu.loser_menu(scorekeeper.was_highscore());
+        
       }
       
     }
