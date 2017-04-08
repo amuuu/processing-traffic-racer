@@ -1,5 +1,4 @@
 # processingGame
-A small personal game project, inspired by Traffic Racer, but very different!!!
-Getting updated daily!
+A small personal game project powered by processing 3, inspired by Traffic Racer, but very different!!!
 
-The biggest note is that the score of each round is saved in a database with just one table. This table consists of just one column called score.
+Getting updated!
