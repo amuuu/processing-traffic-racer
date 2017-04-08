@@ -4,12 +4,23 @@ class Menu{
   Menu(){
     this.playerIsInMiddleOfTheGame=false;
   }
+  
   void game_menu(){
     fill(#000000);
     textSize(70);
     text("Welcome!", 100, HEIGHT/2-100);
     textSize(20);
     text("press 'o' to start the game!", 100, HEIGHT/2);
+    text("press 'p' to pause the game!", 100, HEIGHT/2+50);
+    text("press 'q' to quit the game!", 100, HEIGHT/2+100);
+  }
+  
+  void pause_menu() {
+    fill(#000000);
+    textSize(70);
+    text("Game Paused.", 100, HEIGHT/2-100);
+    textSize(20);
+    text("press 'o' to continue the game!", 100, HEIGHT/2);
     text("press 'p' to pause the game!", 100, HEIGHT/2+50);
     text("press 'q' to quit the game!", 100, HEIGHT/2+100);
   }
@@ -22,7 +33,7 @@ class Menu{
     }
     else {
       textSize(50);
-      text("SORRY :(", 100, HEIGHT/2-200);
+      text(":)", 100, HEIGHT/2-200);
     }
     textSize(30);
     text("your score: " + player.score,100, HEIGHT/2-150);
