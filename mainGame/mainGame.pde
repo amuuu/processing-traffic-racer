@@ -40,7 +40,7 @@ void draw(){
     if (gameTimesCounter==0)
       menu.game_menu();
     else
-      if(!collision) menu.pause_menu();
+      if (!collision) menu.pause_menu();
       else menu.loser_menu(scorekeeper.was_highscore());
   }
   

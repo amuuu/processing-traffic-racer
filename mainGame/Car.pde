@@ -1,4 +1,4 @@
-class Car{
+ class Car{
   int velocity;
   int x;
   int y;
