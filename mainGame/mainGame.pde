@@ -14,6 +14,7 @@ Menu menu;
 boolean playTheGame;
 int gameTimesCounter;
 boolean collision;
+int collisionCounter;
 
 void setup(){
 
@@ -30,6 +31,7 @@ void setup(){
   playTheGame = false;
   collision = false;
   gameTimesCounter=0;
+  collisionCounter=0;
 }
 
 void draw(){
@@ -37,8 +39,7 @@ void draw(){
   background(230);
   
   if(!playTheGame){
-    if (gameTimesCounter==0)
-      menu.game_menu();
+    if (gameTimesCounter==0) menu.game_menu();
     else
       if (!collision) menu.pause_menu();
       else menu.loser_menu(scorekeeper.was_highscore());
@@ -83,6 +84,7 @@ void keyPressed() {
       clear();
       playTheGame=true;
       collision=false;
+      collisionCounter=0;
     }
   }
   
@@ -116,9 +118,10 @@ void drawOpponents(){
       rect(road.scenery_x.get(i),camera.scrollPos+ j*GRID_SIZE , 20, 20); //camera.scrollPos + road.scenery_y[i]+ j*30
       
       if(checkCollison(i,j)){
+        collisionCounter++;
         collision=true;
         playTheGame=false;
-        scorekeeper.save_score(player.score);
+        if(collisionCounter==1) scorekeeper.save_score(player.score);
         clear();
         if(menu.playerIsInMiddleOfTheGame) player.x+=60;
         menu.loser_menu(scorekeeper.was_highscore());
