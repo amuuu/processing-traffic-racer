@@ -123,7 +123,7 @@ void drawOpponents(){
         playTheGame=false;
         if(collisionCounter==1) scorekeeper.save_score(player.score);
         clear();
-        if(menu.playerIsInMiddleOfTheGame) player.x+=60;
+        if(menu.playerIsInMiddleOfTheGame) {player.x+=60; if(player.x>WIDTH-player.width) player.x-=200;}
         menu.loser_menu(scorekeeper.was_highscore());
         
       }
@@ -153,9 +153,8 @@ boolean checkCollison(int i, int j){
   boolean x_condition_2 = ((player.x<(x+20)) && ((player.x + player.width)>(x+20)));
   boolean y_condition   = ((player.y<(y+20)) && ((player.y+player.height)>(y+20))); 
 
-  if( (x_condition_1 && y_condition) || (x_condition_2 && y_condition) ) {
+  if( (x_condition_1 && y_condition) || (x_condition_2 && y_condition) )
     return true;
-  }
   else
     return false;
 }
