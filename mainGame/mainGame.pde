@@ -1,4 +1,3 @@
-import de.bezier.data.sql.*;
 
 final int WIDTH = 600; // screen width
 final int HEIGHT = 800; // screen height
@@ -7,8 +6,6 @@ final int GRID_SIZE = 30;
 Player player;
 Road road;
 Camera camera;
-ScoreKeeper scorekeeper;
-MySQL db;
 Menu menu;
 
 boolean playTheGame;
@@ -24,8 +21,6 @@ void setup(){
   road.setupTheRoad(); //for the first time
   camera = new Camera(400); //y
   camera.currentPos = WIDTH/2;  
-  db = new MySQL(this, "localhost:3306", "gamescores", "root", "amirreza");
-  scorekeeper = new ScoreKeeper(db);
   menu = new Menu();
   
   playTheGame = false;
@@ -42,7 +37,7 @@ void draw(){
     if (gameTimesCounter==0) menu.game_menu();
     else
       if (!collision) menu.pause_menu();
-      else menu.loser_menu(scorekeeper.was_highscore());
+//      else menu.loser_menu(scorekeeper.was_highscore());
   }
   
   
@@ -121,10 +116,10 @@ void drawOpponents(){
         collisionCounter++;
         collision=true;
         playTheGame=false;
-        if(collisionCounter==1) scorekeeper.save_score(player.score);
+        //if(collisionCounter==1) scorekeeper.save_score(player.score);
         clear();
         if(menu.playerIsInMiddleOfTheGame) {player.x+=60; if(player.x>WIDTH-player.width) player.x-=200;}
-        menu.loser_menu(scorekeeper.was_highscore());
+        //menu.loser_menu(scorekeeper.was_highscore());
         
       }
       

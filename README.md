@@ -1,4 +1,7 @@
-# processingGame
-A small personal game project powered by processing 3, inspired by Traffic Racer, but very different!!!
+# Processing Game
+This is a simple game done in Processing.
 
-Getting updated!
+![Menu](/readmeimages/1.png)
+
+
+![Game](/readmeimages/2.png)
