@@ -10,9 +10,9 @@ class Menu{
     textSize(70);
     text("Welcome!", 100, HEIGHT/2-100);
     textSize(20);
-    text("press 'o' to start the game!", 100, HEIGHT/2);
-    text("press 'p' to pause the game!", 100, HEIGHT/2+50);
-    text("press 'q' to quit the game!", 100, HEIGHT/2+100);
+    text("Press O to start the game!", 100, HEIGHT/2);
+    text("Press P to pause the game!", 100, HEIGHT/2+50);
+    text("Press Q to quit the game!", 100, HEIGHT/2+100);
   }
   
   void pause_menu() {
@@ -20,9 +20,9 @@ class Menu{
     textSize(70);
     text("Game Paused.", 100, HEIGHT/2-100);
     textSize(20);
-    text("press 'o' to continue the game!", 100, HEIGHT/2);
-    text("press 'p' to pause the game!", 100, HEIGHT/2+50);
-    text("press 'q' to quit the game!", 100, HEIGHT/2+100);
+    text("Press O to continue the game!", 100, HEIGHT/2);
+    text("Press P to pause the game!", 100, HEIGHT/2+50);
+    text("Press Q to quit the game!", 100, HEIGHT/2+100);
   }
   
   void loser_menu(boolean wasHighscore){
