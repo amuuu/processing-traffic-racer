@@ -1,4 +1,3 @@
-
 final int WIDTH = 600; // screen width
 final int HEIGHT = 800; // screen height
 final int GRID_SIZE = 30;
@@ -31,7 +30,7 @@ void setup(){
 
 void draw(){
   
-  background(230);
+  background(#FCDEBE);
   
   if(!playTheGame){
     if (gameTimesCounter==0) menu.game_menu();
@@ -91,14 +90,15 @@ void keyPressed() {
 
 void printInfo(){
   fill(#000000);
-  textSize(32);
+  textSize(15);
   
-  text("score: " + player.score, 50, 50);
+  text("Score: " + player.score, 20, 30);
 }
 
 void drawPlayer(){
   pushMatrix();
-  fill(#201e23);
+  fill(#3C5233);
+  noStroke();
   rect(player.x,player.y,player.height,player.width);
   popMatrix();
   player.score++;
@@ -106,7 +106,8 @@ void drawPlayer(){
 
 void drawOpponents(){
   
-  fill(#0000cc);
+  fill(#B38A58);
+  noStroke();
   for (int i= abs(camera.currentPos - camera.halfScreen), j=0; i < camera.halfScreen + camera.currentPos; i++, j++) {
     if (road.scenery_y.get(i)!=null) {
       
